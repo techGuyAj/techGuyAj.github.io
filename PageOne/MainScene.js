@@ -11,8 +11,8 @@ class MainScene extends Phaser.Scene {
         this.load.image('idle', "Assets/jump.png");
         this.load.image('run1', "Assets/run1.png");
         this.load.image('run2', "Assets/run2.png");
-        this.load.image('low1', "Assets/Low1.png");
-        this.load.image('low2', "Assets/Low2.png");
+        this.load.image('low1', "Assets/low1.png");
+        this.load.image('low2', "Assets/low2.png");
         this.load.image('death', "Assets/death.png");
         this.load.image('restart', "Assets/restart.png");
 
