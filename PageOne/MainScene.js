@@ -204,8 +204,8 @@ this.dead.visible=false;
 
         //temp
         this.startRun = true;
-        var tempImage =this.add.image(250,200,'idle');
-        Align.scaleToGameW(tempImage,0.1);
+       // var tempImage =this.add.image(250,200,'idle');
+        //Align.scaleToGameW(tempImage,0.1);
      
         // var g =null;
         // g =this.game;
