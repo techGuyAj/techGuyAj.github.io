@@ -81,8 +81,6 @@ class MainScene extends Phaser.Scene {
             
         });
 
-        console.log(this.failedTxt);
-
 
 
         //creating player
@@ -203,31 +201,30 @@ this.dead.visible=false;
         this.pt = [0, 0];
         this.pt[0] = this.floorTwo.x;
         this.pt[1] = this.floorTwo.y;
-        console.log("pt details =" + this.pt[0] + " , " + this.pt[1]);
 
         //temp
         this.startRun = true;
         var tempImage =this.add.image(250,200,'idle');
         Align.scaleToGameW(tempImage,0.1);
      
-        var g =null;
-        g =this.game;
-        var pointer = this.input.activePointer;
-        var ref= this;
+        // var g =null;
+        // g =this.game;
+        // var pointer = this.input.activePointer;
+        // var ref= this;
 
-        this.game.renderer.snapshot( function (image)
-        {
-          //  document.body.appendChild(image);
-          var textureManager = ref.textures;
-            if (textureManager.exists('area'))
-            {
-                textureManager.remove('area');
-            }
-              console.log(image);
-            textureManager.addImage('area', image);
+        // this.game.renderer.snapshot( function (image)
+        // {
+        //   //  document.body.appendChild(image);
+        //   var textureManager = ref.textures;
+        //     if (textureManager.exists('area'))
+        //     {
+        //         textureManager.remove('area');
+        //     }
+        //       console.log(image);
+        //     textureManager.addImage('area', image);
 
-        tempImage.setTexture('area');
-        });
+        // tempImage.setTexture('area');
+        // });
 
 
        // console.log(this.game.renderer.snapshotArea());
@@ -313,9 +310,6 @@ this.dead.visible=false;
             this.player.setVelocityY(15);
             if (!this.jumpStarted) {
 
-
-                console.log("down button is down");
-
                 this.low.visible = true;
                 this.player.visible = false;
                 this.run.visible = false;
@@ -324,7 +318,6 @@ this.dead.visible=false;
         if (this.cursors.down.isUp) {
             if(this.startRun &&this.jumpStarted==false)
             {
-                console.log("down is up")
                 this.run.visible = true;
                 this.low.visible = false;
             }
@@ -337,7 +330,6 @@ this.dead.visible=false;
         //up btn
         if (this.cursors.up.isDown) {
 
-            console.log("pinter down");
             if (!this.jumpStarted) {
                 this.player.visible = true;
                 this.run.visible = false;
@@ -388,7 +380,7 @@ this.dead.visible=false;
 
 
             if (this.obstacles.length > 0) {
-                console.log("length ="+this.obstacles.length);
+
                 
                 var i=0;
                 for(i=0; i<this.obstacles.length;i++)
