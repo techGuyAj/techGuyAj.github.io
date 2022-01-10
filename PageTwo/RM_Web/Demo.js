@@ -16,7 +16,7 @@ var renderer, scene, sceneMatt, camera, cameraMatt;
 var hdrCubeMap, hdrCubeRenderTarget, newEnvMap;
 var angle = 0;
 var pointLight3;
-var isVase = true;
+var isVase = false;
 var isGlossy = true;
 var isMouseDown = false;
 
