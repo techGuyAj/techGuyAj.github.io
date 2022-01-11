@@ -54,7 +54,7 @@ function init() {
 	//scene.background = new THREE.Color( 0x7579BB);
 	var width = window.innerWidth,
 		height = window.innerHeight;
-	//var width = 512,height = 512;
+	 width = 512,height = 512;
 	camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 	//camera.position.z = 20;
 
