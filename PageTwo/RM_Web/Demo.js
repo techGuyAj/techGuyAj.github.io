@@ -13,6 +13,7 @@ import { DEG2RAD, degToRad, radToDeg } from "./src/math/MathUtils.js";
 var cube, vase;
 var controls;
 var renderer, scene, sceneMatt, camera, cameraMatt;
+var canvas;
 var hdrCubeMap, hdrCubeRenderTarget, newEnvMap;
 var angle = 0;
 var pointLight3;
@@ -70,8 +71,9 @@ function init() {
 	//scene.add(camera);
 
 	//sceneMatt.add(cameraMatt);
-
-	renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        canvas = document.getElementById("RM_Canvas");
+	//renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+	renderer = new THREE.WebGLRenderer({canvas :canvas, alpha: true, antialias: true });
 	renderer.setClearColor(0x7579bb, 0);
 	renderer.setSize(width, height);
 	renderer.setPixelRatio(window.devicePixelRatio);
@@ -79,7 +81,7 @@ function init() {
 	//renderer.physicallyCorrectLights = false;
 	// renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
-	document.body.appendChild(renderer.domElement);
+	//document.body.appendChild(renderer.domElement);
 
 	// controls
 
@@ -156,14 +158,14 @@ function init() {
 	}
 
 	  //Touch events
-        document.addEventListener("touchstart", onDocumentTouchesDown, false);
-        document.addEventListener("touchend", onDocumentTouchesUp, false);
-        document.addEventListener("touchmove", onDocumentTouchesMove, false);
+        canvas.addEventListener("touchstart", onDocumentTouchesDown, false);
+        canvas.addEventListener("touchend", onDocumentTouchesUp, false);
+        canvas.addEventListener("touchmove", onDocumentTouchesMove, false);
 	//Mouse evenets
-	document.addEventListener("mousedown", onDocumentMouseDown, false);
-	document.addEventListener("mouseup", onDocumentMouseUp, false);
-	document.addEventListener("mousemove", onDocumentMouseMove, false);
-	document.addEventListener("wheel", onDocumentMouseScroll, false);
+	canvas.addEventListener("mousedown", onDocumentMouseDown, false);
+	canvas.addEventListener("mouseup", onDocumentMouseUp, false);
+	canvas.addEventListener("mousemove", onDocumentMouseMove, false);
+	canvas.addEventListener("wheel", onDocumentMouseScroll, false);
 
 	function onDocumentMouseDown(event) {
 		//event.which == 1 ? (isMouseDown = true) : (isMouseDown = false); //left mouse button
