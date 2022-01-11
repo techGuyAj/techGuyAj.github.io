@@ -155,10 +155,10 @@ function init() {
 		}
 	}
 
-	//Touch events
-	document.addEventListener("touchstart", onDocumentMouseDown, false);
-	document.addEventListener("touchend", onDocumentMouseUp, false);
-	document.addEventListener("touchmove", onDocumentMouseMove, false);
+	  //Touch events
+        document.addEventListener("touchstart", onDocumentTouchesDown, false);
+        document.addEventListener("touchend", onDocumentTouchesUp, false);
+        document.addEventListener("touchmove", onDocumentTouchesMove, false);
 	//Mouse evenets
 	document.addEventListener("mousedown", onDocumentMouseDown, false);
 	document.addEventListener("mouseup", onDocumentMouseUp, false);
@@ -246,6 +246,107 @@ function init() {
 		applyZoom = true;
 	}
 
+	 //Touch  movement code.
+  function onDocumentTouchesDown(event) {
+   // console.log("touch Down");
+
+	let touchlist = event.touches;
+	let touchobj =touchlist[0]; //first touch object
+   // if (event.which == 1)
+	 {
+		 
+      isMouseDown = true;
+	  touchobj.clientX
+      animBX =parseInt(touchobj.clientX);// event.x;
+      animBY =parseInt(touchobj.clientY);// event.y;
+      lastAnimTime = new Date().getMilliseconds();
+    }
+  }
+	
+	  function onDocumentTouchesUp(event) {
+  //  console.log("Touches up");
+
+    isMouseDown = false;
+
+    prevY = -1;
+    prevX = -1;
+    
+   // animEX = event.x;
+    //animEY = event.y;
+
+	let touchlist = event.touches;
+	let touchobj =event.changedTouches[0];//touchlist[0]; //first touch object
+	
+	animBX =-parseInt(touchobj.clientX);// event.x;
+	animBY =parseInt(touchobj.clientY);// event.y;
+
+
+    let animTime = new Date().getMilliseconds();
+
+    let deltaTime = animTime - lastAnimTime;
+    var timeGap = deltaTime / 1000.0;
+    let threshold = 5.0 / width;
+    let swipeDist = Math.abs(animEX - animBX) / width;
+    if (timeGap > 0.02 && timeGap < 0.5 && swipeDist >= threshold) {
+      let diffTime = deltaTime * 0.12;
+      let distSquareSum =
+        Math.pow(animEX - animBX, 2.0) + Math.pow(animEY - animBY, 2.0);
+      let distance = Math.sqrt(distSquareSum);
+      var velocity = distance / diffTime;
+      var posDir = false;
+      let xDiff = animBX - animEX;
+      let yDiff = animBY - animEY;
+
+      if (xDiff > 0) {
+        velocity *= -1;
+        posDir = false;
+      } else {
+        posDir = true;
+      }
+
+      if (posDir) {
+        if (velocity > 18) velocity = 18.0;
+      } else if (velocity < -18) velocity = -18.0;
+
+      animDir = posDir;
+      animVelocity = velocity;
+    }
+  }
+
+	
+	  function onDocumentTouchesMove(event) {
+    //console.log("Touches move");
+   // let x = event.x;
+    //let y = event.y;
+
+	let touchlist = event.touches;
+	let touchobj =touchlist[0]; //first touch object
+	let x =parseInt(touchobj.clientX);// event.x;
+	let y =parseInt(touchobj.clientY);// event.y;
+
+
+    if (isMouseDown) {
+      if (prevX == -1 || prevY == -1) {
+        prevX = x;
+        prevY = y;
+      }
+      xVelocity += (x - prevX) * 0.02;
+      //  localCamera.rotateEye((prevY - y).toFloat() * 0.02f, (x - prevX).toFloat() * 0.02f)
+      //Log.e("Camera","phi : ${localCamera.phi} , theta : ${localCamera.theta}");
+
+      if (prevX >= 1 || prevY >= 1) {
+        var xDiff = (x - prevX) * 0.1;
+        var yDiff = (prevY - y) * 0.1;
+        vaseTilt += yDiff;
+        vaseHeadingVelocity += xDiff;
+      }
+
+      prevX = x;
+      prevY = y;
+    }
+  }
+	
+	
 	//We have to create 2 materials 1 for body and 1 for the logo.
 
 	material.map = brickTex;
